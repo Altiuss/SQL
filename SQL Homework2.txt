@@ -1,0 +1,91 @@
+
+First level: 1.Создать таблицу goods (товары) с полями:
+id (уникальное значение)
+title (cтрока максимум 30 символов)
+quantity (число больше 0)
+price (максимум 5-значное число)
+in_stock (символ (Y/N))
+    
+  CREATE TABLE Goods ( 
+  ID    NUMERIC(3)  UNIQUE,
+  title   VARCHAR(30),
+  qantity NUMERIC(5) NOT NULL,
+  price  NUMERIC(5), 
+  in_stock   char(1)  check(in_stock IN ('Y', 'N'))
+  )
+-------------------------------------------------------------------------------------------------------------
+
+Second level: 2. Заполните созданную таблицу данными, минимум 10 строк.
+
+
+INSERT INTO Goods (
+  ID,
+  title,
+  qantity,
+  price, 
+  in_stock
+  ) VALUES (
+    2, 
+   'Krombacher',
+    1000,
+    0.98,
+    'Y'
+    ),(
+        3, 
+   'Bitburger',
+    111,
+    0.89,
+    'Y'
+    ),(  
+        4, 
+   'Warsteiner',
+    100,
+    0.72,
+    'N'
+    ),(
+        5, 
+   'Veltins',
+    130,
+    1.56,
+    'Y'
+    ),(  
+         6, 
+   'Beck’s',
+    1560,
+    0.78,
+    'Y'
+    ),(
+        7, 
+   'Hasseröder',
+    678,
+    1.23,
+    'Y'
+    ),(  
+        8, 
+   'Paulaner',
+    10985,
+    0.91,
+    'N'
+    ),(
+        9, 
+   'Radeberger Pilsner',
+    1054,
+    0.98,
+    'Y'
+    ),(  
+         10, 
+   'Erdinger Weißbier',
+    78,
+    1.17,
+    'Y'
+    );
+
+----------------------------------------------------------------------
+Сформируйте выборку из 3-х самых дорогих товаров в таблице
+
+
+
+SELECT 
+* 
+FROM Goods
+ORDER BY price DESC LIMIT(3)

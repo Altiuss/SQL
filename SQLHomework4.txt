@@ -1,0 +1,40 @@
+First level: Увеличить всем учащимся оценку в 10 раз
+
+SET sql_safe_updates = 0;
+
+ALTER TABLE Students
+DROP CHECK students_chk_1;
+
+ALTER TABLE	Students
+MODIFY COLUMN	 avg_mark NUMERIC (3, 1);
+
+
+UPDATE Students
+SET avg_mark = avg_mark * 10;
+
+
+---------------------------------------------------------------------------
+
+Second level: Для всех учеников, у которых оценка не больше 31 увеличить на 10
+
+
+UPDATE students
+SET avg_mark = avg_mark + 10
+WHERE avg_mark <= 31;
+
+
+SELECT 
+ProductID,
+ProductName,
+SupplierID,
+CategoryID,
+	Unit,
+    Price AS PreiceEUR,
+ ROUND(Price * 137, 2) as PriceJPY
+    from Products;
+
+SELECT
+*
+FROM Products t1
+INNER JOIN Categories t2 
+ON t1.CategoryID = t2.CategoryID;

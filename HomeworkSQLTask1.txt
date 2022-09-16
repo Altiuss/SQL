@@ -1,0 +1,83 @@
+1.Вывести все (только) имена клиентов.
+
+SELECT 
+CustomerName
+FROM [Customers]
+
+-------------------------------------------------------
+2.Вывести клиентов из Берлина, имена которых содержат слово "del".
+
+SELECT 
+* 
+FROM [Customers]
+WHERE Country = 'Germany' AND CustomerName LIKE '%del%';
+
+-------------------------------------------------------
+3.Вывести контактные имена клиентов из Лондона.
+
+SELECT
+ContactName
+FROM [Customers]
+WHERE City = 'Londn';
+
+---------------------------------------------------------------
+
+
+Second level: Создать таблицу Users с полями id, name, phone, country и добавить туда несколько пользователей.
+
+
+CREATE TABLE Users(
+  ID NUMERIC(100) UNIQUE,
+  Name VARCHAR(30) NOT NULL,
+  Phone NUMERIC(10) NOT NULL,
+  Country VARCHAR(20)
+  );
+
+INSERT INTO Users (
+ID,
+Name,
+Phone,
+Country
+)VALUES(
+1,
+'Yang Wang',
+08737363,
+'London'
+);
+
+INSERT INTO Users (
+ID,
+Name,
+Phone,
+Country
+)VALUES(
+2,
+'Antonio Moreno',
+'5 432 043',
+'Strasbourg'
+);
+
+INSERT INTO Users (
+ID,
+Name,
+Phone,
+Country
+)VALUES(
+3,
+'Regina Murphy',
+'(313) 555-5735',
+'Melbourne'
+);
+
+INSERT INTO Users (
+ID,
+Name,
+Phone,
+Country
+) VALUES (
+4,
+'Alfreds Futterkiste',
+'(313) 567-5735',
+'Marseille'
+);
+

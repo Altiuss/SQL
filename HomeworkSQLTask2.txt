@@ -1,0 +1,69 @@
+1.Изменить город всех клиентов из Лондона на Бристоль
+
+UPDATE Customers 
+SET City = 'Bristol'
+where City = 'London';
+
+---------------------------------------------------------------
+2.Изменить адрес клиента с CustomerID=18 на новый '15 Tsawassen Blvd'
+
+UPDATE Customers 
+SET Address = '15 Tsawassen Blvd'
+WHERE CustomerID = 18;
+
+---------------------------------------------------------------------
+3.Удалить заказы 10257, 10258, 10259, 10260
+
+DELETE FROM Orders
+WHERE OrderID IN (10257, 10258, 10259, 10260);
+
+-------------------------------------------------------------------
+
+4.Изменить поставщика (ShipperID) для заказов 10266, 10275, 10277, 10278 на значение 19
+
+ UPDATE Orders
+ SET ShipperID = 19
+ WHERE OrderID IN (10266, 10275, 10277, 10278);
+
+------------------------------------------------------------------------------------
+
+5.Вывести все товары (products) с ценой выше 60
+
+
+SELECT * FROM [Products]
+WHERE Price >= 60
+
+-------------------------------------------------------------------------------------
+
+6.Удалить таблицу CLIENTS
+
+DROP TABLE Clients;
+
+INSERT INTO Clients (
+ID,
+name,
+phone
+) VALUES (
+1,
+'Aigars',
+'+491786206766'
+);
+
+SELECT SUM(Quantity) AS total
+FROM OrderDetails
+
+SELECT COUNT(*) AS total
+FROM Products
+
+SELECT AVG(Price) as avgPrice
+FROM Products
+
+SELECT AVG(Price) as avgPrice,
+MIN(Price) as minPrice,
+MAX(Price) as maxPrice,
+FROM Products
+
+SELECT ProductID,
+Price as PriceEuro,
+price*138 as PriceJPY
+FROM [Products]
