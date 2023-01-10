@@ -1,0 +1,215 @@
+db.createCollection('profiles')
+
+db.profiles.insertMany()
+
+db.profiles.find().limit(3)
+
+db.profiles.find().skip(3)
+
+db.profiles.find().skip(3).limit(2)
+
+db.profiles.find().sort({age: -1})
+
+db.profiles.find().sort({salary: -1})
+
+db.profiles.find().sort({firstname: 1})
+
+db.workers.find({firstname: /r/})
+
+db.workers.countDocuments()
+
+use('webstore')
+db.products.find()
+
+db.workers.find(
+  {firstname: 'Ivan'},
+  {skills: {$slice: [1, 1]}}   1.Palaist garam.2 Limit)
+
+db.workers.find(
+  {firstname: 'Inga'},
+  {skills: {$slice: 2}}
+  )
+
+db.products.find({
+  count: {$gte: 10, $lte: 20},
+  price: {$gte: 5000}
+
+db.products.find({
+  id: {$in: [2, 5, 8]}
+})
+
+db.products.updateMany(
+  {price: {$lte: 2000}},
+  {$set: {count: 15}
+})
+
+db.products.updateMany(
+  {},
+  {$set: {country: 'Germany'}}
+  )
+
+db.products.updateMany(
+  {},
+  {$set: {country: 'Germany'}}
+  )
+
+db.profiles.updateMany(
+  {id: {$gte: 4, $lte: 6}},
+  {$inc: {salary: 300} }
+ 
+  )
+
+db.profiles.updateMany(
+  {},
+  {$set: {status: 'not defined'}}
+)
+
+db.products.updateMany(
+  {},
+  {$rename: {'country': 'origin_country'}}
+  )
+db.profiles.updateMany(
+  {age: {$lte: 30}},
+  {$set: {status: 'younger than 30'}}
+  )
+
+db.products.updateMany(
+  {},
+  {$unset: {'origin_country': ''}}
+  )
+
+db.products.updateMany(
+  {},
+  {$push: {country: 'Spain'}}
+  )
+
+db.products.updateMany(
+  {},
+  {$set: {country: []}}
+  )
+
+db.products.updateMany(
+  {id: 3},
+  {$push: {country: {$each: ['Germany', 'France'] }}}
+   )
+
+db.products.updateMany(
+  {id: {$in: [5, 7, 9]}},
+  {$push: {city: {$each: ['Madrid', 'Berlin', 'Milan']}}}
+)
+
+db.products.updateMany(
+  {price: {$gte: 20000}},
+  {$unset: {'city': ''}}
+  )
+
+db.products.updateMany({price: {$gte: 7000, $lte: 15000}},
+{$push: {country: {$each: ['Brasilia', 'Argentina']}}})
+
+db.products.updateOne(
+  {id: 10},
+  {$inc: {price: 1000}}
+  )
+
+db.products.updateOne(
+  {price: {$lte: 15000}},
+  {$inc: {count: 5}}
+  )
+
+db.products.updateMany(
+                {},
+                {'$mul': {'price': 1.1}}
+
+)
+
+db.products.updateMany(
+                {},
+                {'$inc': {'price': 10 * -1}}
+
+)
+
+db.products.updateMany(
+    {'price': {'$lt': 0}},
+    {
+        '$mul': {
+            'price': -1
+        }
+    }
+)
+
+
+
+db.products.aggregate([
+    {
+        '$group': {
+            '_id': null,
+            'total_quantity': {'$sum': '$quantity'}
+        }
+    }
+])
+
+db.products.aggregate([
+    {
+        '$match': {
+            'price': {'$gte': 2000}
+        }
+    },
+    {
+        '$sort': {
+            'price': -1
+        }
+    }
+])
+
+db.orders.find(
+{
+    'is_paid': {'$exists': false}
+}
+
+)
+
+db.products.aggregate([
+    {
+        '$group': {
+            '_id': null,
+            'min_price': {'$min': '$price'},
+            'max_price': {'$max': '$price'},
+            'avg_price': {'$avg': '$price'},
+            'products_count': {'$sum': 1}
+        }
+    }
+])
+
+db.profiles.updateOne(
+  {id: 3},
+  {$set: {city: []}}
+)
+
+
+db.products.aggregate([
+    {
+        
+      '$sample': {'size': 1}
+         
+        }
+])
+
+/*
+ДЗ:
+1. Вывести 3 самых молодых людей
+db.profiles.find().sort({age: 1}).limit(3)
+
+2. Вывести 5 документов с самой большой зарплатой
+
+db.profiles.find().sort({salary: -1}).limit(5)
+
+3. Отсортировать людей по фамилии в алфавитном порядке
+db.profiles.find().sort({lastname: 1})
+
+
+4. Вывести 2, 3, 4 и 5 документы
+db.profiles.find().skip(1).limit(4)
+
+
+5. Разобраться с тем, как работает оператор $slice
+*/

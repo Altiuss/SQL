@@ -1,0 +1,115 @@
+db.orders.countDocuments()
+
+db.orders.find({products: 'Apple'}).count()
+
+db.travel_offers.countDocuments({destination_city:'Paris', price: {$lte: 1000}})
+
+
+db.orders.find().sort({amount: 1})
+
+db.orders.find().sort({amount: -1}).limit(3)
+
+db.orders.distinct('products')
+
+db.orders.deleteMany({})
+
+
+db.orders.find({city: 'Berlin'}).count()
+
+
+db.orders.find(
+  {products: 'Apple'},
+  {$in: {city: ['Berlin', 'Madrid']}}).count()
+
+
+db.orders.aggregate(
+  [
+    {$match: {}},
+    {$group: {_id: '$customer', total: {$sum: '$amount'}}}
+    ])
+
+db.orders.aggregate(
+  [
+    {$match: {customer: 'Olga'}},
+    {$group: {_id: '$customer', total: {$sum: '$amount'}}}
+    ])
+
+db.orders.aggregate(
+  [
+    {$match: {customer: {$in: ['Olga', 'Anton']}}},
+    {$group: {_id: '$customer', total: {$sum: '$amount'}}}
+    ])
+
+db.orders.aggregate(
+  [
+    {$match: {}},
+    {$group: {_id: '$products', total: {$sum: '$amount'}}}
+    ])
+
+db.orders.aggregate(
+  [
+    {$match: {}},
+    {$group: {_id: '$products', total: {$sum: '$amount'}}}
+    ]).sort({total: -1})
+
+
+db.orders.aggregate(
+  [
+    {$match: {}},
+    {$group: {_id: '$products', total: {$sum: '$amount'}}},
+    {$sort: {total: -1}}
+    ])
+
+db.orders.updateMany(
+  {},
+  {$set: {count: 0}}                                                             Sozdajom novojo znacenije
+  )
+
+
+db.orders.aggregate(
+  [
+    {$match: {products: 'Apple'}},
+    {$group: {_id: '$products', total: {$sum: '$count'}}}
+    ])
+
+db.orders.aggregate(
+  [
+    {$match: {customer: {$in: ['Olga', 'Anton']}}},
+    {$group: {_id: '$customer', total: {$sum: '$count'}}}
+    ])
+
+db.orders.aggregate(
+  [
+    {$match: {customer: {$in: ['Olga','Anton']}}},
+    {$group: {_id: 'all-products', total: {$sum: '$count'}}}
+    ])
+
+db.orders.aggregate(
+  [
+    {$match: {customer: 'Olga'}},
+    {$group: {_id: '$city'}}
+    ])
+{ _id: 'Berlin' }
+{ _id: 'Madrid' }
+
+db.orders.aggregate(
+  [
+    {$match: {products: 'Apple', city: 'Berlin'}},
+    {$group: {_id: '$products', total: {$sum: '$count' }}}
+    ])
+{ _id: 'Apple', total: 4 }
+
+db.orders.aggregate(
+  [
+    {$match: {city: {$in: ['Madrid', 'Paris']}}},
+    {$group: {_id: '$all_products_count', total: {$sum: '$count' }}}
+    ])
+{ _id: null, total: 3 }
+
+db.travel_offers.aggregate(
+  [
+    {$match: {departure_city: {$in: ['Paris', 'Berlin']}}},
+    {$group: {_id: 'Total:', total: {$sum: '$orders_count'}}}
+    ])
+{ _id: 'Total:', total: 7 }
+

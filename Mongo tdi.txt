@@ -1,0 +1,16 @@
+db.eventlog.find({
+    $and: [			
+    {'weight_kg': {'$gte': 5}},
+    {'weight_kg': {'$lte': 8}}
+    ] 
+  })
+
+db.eventlog.find(
+    {
+        'weight_kg': { 
+            '$gte': 5,
+            '$lte': 8
+         }
+    }
+     
+)

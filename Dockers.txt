@@ -1,0 +1,53 @@
+docker ps
+docker ps -a
+docker run hello-world
+
+# same as docker run --name web nginx
+docker pull nginx
+docker create --name web nginx
+docker start web
+# ---
+
+#port binding
+docker run -p 8080:80 nginx
+# detached mode
+docker run -d nginx
+# volume binding with ro
+docker run -d -p 8080:80 -v /workspaces/docker-example:/usr/share/nginx/html:ro nginx
+
+
+alias d=docker
+d pull redis
+# опция --rm удаляет контейнер после его остановки
+d run -d --rm -p6379:6379 redis
+# остановка контейнера
+d stop 74 # 74 - это первые символы container-id
+
+# запускаем redis с сохранением данных в папке на хосте
+d run -d -p6379:6379 -v /workspaces/docker-example/data:/data:rw redis redis-server --save 60 1
+# полностью удаляем контейнер
+# т.е. удаляем все данные, которые контейнер создал за время работы
+d rm -f 29
+# запускаем redis с той же подключенной папкой с данными
+# данные загружаются в базу данных из папки
+d run -d -p6379:6379 -v /workspaces/docker-example/data:/data:rw redis redis-server --save
+
+alias d=docker
+d pull redis
+# опция --rm удаляет контейнер после его остановки
+d run -d --rm -p6379:6379 redis
+# остановка контейнера
+d stop 74 # 74 - это первые символы container-id
+
+docker run -p8000:8000 --rm -e DB_HOST=172.17.0.3 web
+
+git checkout origin/frontend ui/index.htm
+
+git checkout origin/frontend Caddyfile
+
+npm -g install serve
+
+serve -ui  ili (npx serve ui)
+
+docker run -v /workspaces/docker-example/Caddyfile:/etc/caddy/Caddyfile -v /workspaces/docker-example/ui:/html -p 3000:3000 -d caddy
+
